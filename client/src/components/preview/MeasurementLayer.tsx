@@ -1,0 +1,38 @@
+import type { PreviewBlock, PageSettings } from '@/types/document';
+import { BlockRenderer } from './BlockRenderer';
+import { A4_WIDTH_PX } from '@/lib/preview/pageConstants';
+
+interface MeasurementLayerProps {
+  blocks: PreviewBlock[];
+  pageSettings: PageSettings;
+  measureRef: React.Ref<HTMLDivElement>;
+}
+
+/**
+ * Hidden off-screen layer used to measure block heights for pagination.
+ * Uses the same BlockRenderer as the visible preview for consistent sizing.
+ */
+export function MeasurementLayer({ blocks, pageSettings, measureRef }: MeasurementLayerProps) {
+  const contentWidth =
+    A4_WIDTH_PX - pageSettings.marginLeft - pageSettings.marginRight;
+
+  return (
+    <div
+      ref={measureRef}
+      aria-hidden
+      className="pointer-events-none fixed opacity-0"
+      style={{
+        width: contentWidth,
+        left: -9999,
+        top: 0,
+        zIndex: -1,
+      }}
+    >
+      {blocks.map((block) => (
+        <div key={block.id} data-block-id={block.id}>
+          <BlockRenderer block={block} lineSpacing={pageSettings.lineSpacing} />
+        </div>
+      ))}
+    </div>
+  );
+}

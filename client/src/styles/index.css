@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+    --border: 214 32% 91%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+/* Editor styles */
+.ProseMirror {
+  min-height: calc(100vh - 120px);
+  outline: none;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: hsl(var(--muted-foreground));
+  pointer-events: none;
+  height: 0;
+}
+
+.ProseMirror h1 { @apply text-3xl font-bold mb-4; }
+.ProseMirror h2 { @apply text-2xl font-semibold mb-3; }
+.ProseMirror h3 { @apply text-xl font-semibold mb-2; }
+.ProseMirror h4 { @apply text-lg font-medium mb-2; }
+
+.ProseMirror ul { @apply list-disc pl-6 mb-3; }
+.ProseMirror ol { @apply list-decimal pl-6 mb-3; }
+.ProseMirror blockquote { @apply border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-3; }
+.ProseMirror hr { @apply my-4 border-gray-300; }
+
+.ProseMirror table {
+  @apply w-full border-collapse border border-gray-300 mb-3;
+}
+.ProseMirror th,
+.ProseMirror td {
+  @apply border border-gray-300 px-3 py-2 text-sm;
+}
+.ProseMirror th {
+  @apply bg-gray-50 font-medium;
+}
+
+.ProseMirror .editor-image {
+  @apply max-w-full h-auto rounded my-2;
+}
+
+.ProseMirror .editor-link {
+  @apply text-primary underline;
+}
+
+.ProseMirror pre.code-block {
+  @apply bg-gray-100 rounded p-4 font-mono text-sm mb-3 overflow-x-auto;
+}
+
+/* Page break node in editor */
+.page-break-node {
+  @apply relative my-6 flex items-center justify-center;
+  border-top: 2px dashed hsl(var(--border));
+  border-bottom: 2px dashed hsl(var(--border));
+  padding: 8px 0;
+  background: hsl(var(--muted));
+}
+
+.page-break-label {
+  @apply text-xs font-medium text-muted-foreground bg-card px-3 py-1 rounded border;
+}
+
+/* Preview page styles */
+.preview-page {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+.preview-page-export {
+  box-shadow: none;
+}
+
+.preview-page {
+  font-family: "Times New Roman", Times, serif;
+  font-variant-numeric: lining-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.preview-page-content a {
+  @apply text-blue-600 underline;
+}
+
+.preview-page-content code {
+  @apply bg-gray-100 px-1 rounded text-sm font-mono;
+}
+
+.preview-page-content mark {
+  @apply px-0.5 rounded;
+}
+
+/* Resizable table columns in editor */
+.column-resize-handle {
+  @apply absolute top-0 right-0 w-1 h-full bg-primary cursor-col-resize;
+}
+.docmirror-editor {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #111827;
+}
+
+.docmirror-editor p {
+  margin-bottom: 0.75rem;
+}
+
+.docmirror-editor h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.docmirror-editor h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.docmirror-editor h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.docmirror-editor ul,
+.docmirror-editor ol {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.docmirror-editor li {
+  margin-bottom: 0.25rem;
+}
+
+
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+td, th {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.preview-page table {
+  font-family: inherit;
+}
+
+.preview-page td,
+.preview-page th {
+  font-family: inherit;
+  font-variant-numeric: lining-nums;
+}
