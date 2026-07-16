@@ -64,11 +64,6 @@ export function DashboardPage() {
             onImport={handleImportDocx}
           />
         </div>
-        {apiOnline === false && (
-          <div className="mt-4 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-800">
-            Backend API is offline. Start the server with <code className="font-mono">npm run dev</code> in the <code className="font-mono">server</code> folder.
-          </div>
-        )}
       </div>
 
       {apiOnline === null ? (
