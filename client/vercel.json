@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://docmirror-server.onrender.com"
+      "source": "/api/:path*",
+      "destination": "https://docmirror-server.onrender.com/api/:path*"
     }
   ]
 }
