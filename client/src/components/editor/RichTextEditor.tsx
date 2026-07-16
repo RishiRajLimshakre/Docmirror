@@ -17,8 +17,6 @@ export function RichTextEditor({ className }: RichTextEditorProps) {
   const setContent = useDocumentStore((s) => s.setContent);
   const contentRevision = useDocumentStore((s) => s.contentRevision);
   const pageSettings = useDocumentStore((s) => s.document?.pageSettings);
-  // const previewPages = useDocumentStore((s) => s.previewPages);
-  // const documentContent = useDocumentStore((s) => s.document?.content);
 
   const debouncedUpdate = useCallback(
     debounce((json: Record<string, unknown>) => {

@@ -14,7 +14,7 @@ import TableHeader from "@tiptap/extension-table-header";
 import Placeholder from "@tiptap/extension-placeholder";
 import { PageBreak } from "./extensions/PageBreak";
 import { FontSize, LineSpacing } from "./extensions/FontSize";
-// import { Table as BaseTable } from '@tiptap/extension-table';
+
 
 export function createEditorExtensions() {
   return [
