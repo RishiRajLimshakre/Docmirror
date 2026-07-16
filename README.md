@@ -1,6 +1,6 @@
 # DocMirror
 
-**DocMirror** is a production-style web application: a Word-like document editor with a **live paginated PDF preview**. Edit rich formatted content on the left and see how it will look across A4 pages on the right — in real time.
+**DocMirror** is a production-style web application: a Word-like document editor with a **live PDF preview**. Edit rich formatted content on the left and see how it will look across A4 pages on the right — in real time.
 
 ## Features
 
@@ -16,8 +16,8 @@
 
 | Layer | Technologies |
 |-------|-------------|
-| Frontend | React, TypeScript, Vite, Tailwind CSS, Zustand, Tiptap, React Router |
-| Backend | Node.js, Express, TypeScript, MongoDB, Mongoose |
+| Frontend | React, Vite,  CSS, Zustand, Tiptap, React Router |
+| Backend | Node.js, Express, MongoDB, Mongoose |
 | Export | html2canvas + jsPDF (PDF), docx (DOCX) |
 
 ## Project Structure
