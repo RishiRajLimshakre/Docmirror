@@ -1,14 +1,20 @@
-import { Request, Response, NextFunction } from 'express';
-import path from 'path';
-import { AppError } from '../middleware/errorHandler.js';
+import { Request, Response, NextFunction } from "express";
+import path from "path";
+import { AppError } from "../middleware/errorHandler.js";
 
-export async function uploadImage(req: Request, res: Response, next: NextFunction) {
+export async function uploadImage(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   try {
     if (!req.file) {
-      throw new AppError(400, 'No file uploaded');
+      throw new AppError(400, "No file uploaded");
     }
 
-    const url = `/uploads/${req.file.filename}`;
+    const baseUrl = process.env.BASE_URL;
+    const url = `${baseUrl}/uploads/${req.file.filename}`;
+    
     res.status(201).json({
       url,
       filename: req.file.filename,
