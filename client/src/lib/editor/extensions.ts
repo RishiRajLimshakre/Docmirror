@@ -51,9 +51,7 @@ export function createEditorExtensions() {
     }),
     TableRow,
     TableHeader,
-    TableCell.configure({
-      allowGapCursor: true,
-    }),
+    TableCell,
     PageBreak,
     Gapcursor,
     Dropcursor,

@@ -13,8 +13,7 @@ interface MeasurementLayerProps {
  * Uses the same BlockRenderer as the visible preview for consistent sizing.
  */
 export function MeasurementLayer({ blocks, pageSettings, measureRef }: MeasurementLayerProps) {
-  const contentWidth =
-    A4_WIDTH_PX - pageSettings.marginLeft - pageSettings.marginRight;
+
 
   return (
     <div
