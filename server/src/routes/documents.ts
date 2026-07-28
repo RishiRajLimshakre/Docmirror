@@ -1,7 +1,10 @@
 import { Router } from 'express';
 import * as documentController from '../controllers/documentController.js';
+import { authMiddleware } from '../middleware/auth.js';
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.get('/', documentController.listDocuments);
 router.get('/:id', documentController.getDocument);

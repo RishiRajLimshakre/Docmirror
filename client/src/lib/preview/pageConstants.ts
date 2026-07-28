@@ -12,14 +12,13 @@ export function getContentArea(pageSettings: {
   marginLeft: number;
   marginRight: number;
 }): { width: number; height: number } {
-  const SAFE_CONTENT_PADDING = 8; // prevents clipping
+
 
   return {
     width: A4_WIDTH_PX - pageSettings.marginLeft - pageSettings.marginRight,
     height:
       A4_HEIGHT_PX -
       pageSettings.marginTop -
-      pageSettings.marginBottom -
-      SAFE_CONTENT_PADDING,
+      pageSettings.marginBottom ,
   };
 }

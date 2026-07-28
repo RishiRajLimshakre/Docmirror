@@ -19,6 +19,7 @@ export function paginateBlocks(
   pageSettings: PageSettings,
 ): PreviewPage[] {
   const { height: contentHeight } = getContentArea(pageSettings);
+
   const heightMap = new Map(measurements.map((m) => [m.blockId, m.height]));
 
   const pages: PreviewPage[] = [];
@@ -26,35 +27,32 @@ export function paginateBlocks(
   let usedHeight = 0;
   let pageNumber = 1;
 
-  const pushPage = () => {
-    if (currentBlocks.length > 0 || pages.length === 0) {
-      pages.push({ pageNumber, blocks: [...currentBlocks] });
-      pageNumber += 1;
-      currentBlocks = [];
-      usedHeight = 0;
-    }
-  };
-
   for (const block of blocks) {
     if (block.type === "pageBreak") {
-      pushPage();
+      if (currentBlocks.length > 0) {
+        pages.push({ pageNumber, blocks: currentBlocks });
+        pageNumber++;
+        currentBlocks = [];
+        usedHeight = 0;
+      }
       continue;
     }
 
-    let blockHeight = heightMap.get(block.id) ?? estimateBlockHeight(block);
+    const blockHeight = heightMap.get(block.id);
 
-    // If list block, add safety buffer to avoid clipping
-    if (block.type === "bulletList" || block.type === "orderedList") {
-      blockHeight += 12;
+    if (blockHeight == null) {
+      // Do NOT paginate yet if measurements incomplete
+      return pages.length ? pages : [{ pageNumber: 1, blocks: [] }];
     }
-    const SAFE_PADDING = 4; // prevents last-line clipping
 
-    // Block doesn't fit on current page — start new page
-    if (
-      usedHeight + blockHeight > contentHeight - SAFE_PADDING &&
-      currentBlocks.length > 0
-    ) {
-      pushPage();
+    // If block doesn't fit, finalize current page FIRST
+    if (usedHeight + blockHeight > contentHeight) {
+      if (currentBlocks.length > 0) {
+        pages.push({ pageNumber, blocks: currentBlocks });
+        pageNumber++;
+        currentBlocks = [];
+        usedHeight = 0;
+      }
     }
 
     currentBlocks.push(block);
@@ -70,34 +68,6 @@ export function paginateBlocks(
   }
 
   return pages;
-}
-
-/** Fallback height estimates when measurement isn't available yet */
-function estimateBlockHeight(block: PreviewBlock): number {
-  switch (block.type) {
-    case "heading":
-      return 40 + (block.level ? (4 - block.level) * 8 : 0);
-    case "paragraph":
-      return Math.max(24, Math.ceil((block.html?.length ?? 0) / 80) * 24);
-    case "bulletList":
-    case "orderedList":
-      return (block.items?.length ?? 1) * 28;
-    case "blockquote":
-      return 48;
-    case "horizontalRule":
-      return 24;
-    case "image":
-      return block.width ? Math.min(block.width * 0.75, 400) : 200;
-    case "table":
-      return (block.tableData?.length ?? 1) * 36 + 16;
-    case "codeBlock":
-      return Math.max(
-        48,
-        Math.ceil((block.text?.split("\n").length ?? 1) * 20),
-      );
-    default:
-      return 24;
-  }
 }
 
 export function getTotalPages(pages: PreviewPage[]): number {

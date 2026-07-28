@@ -1,13 +1,26 @@
 const API_BASE = '/api';
 
+function authHeaders(): Record<string, string> {
+  const token = localStorage.getItem('docmirror_token');
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  return headers;
+}
+
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
+    ...options,
     headers: {
-      'Content-Type': 'application/json',
+      ...authHeaders(),
       ...options.headers,
     },
-    ...options,
   });
+
+  if (res.status === 401) {
+    localStorage.removeItem('docmirror_token');
+    window.location.href = '/login';
+    throw new Error('Session expired');
+  }
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
@@ -49,10 +62,12 @@ export const documentsApi = {
 
 export const uploadsApi = {
   uploadImage: async (file: File) => {
+    const token = localStorage.getItem('docmirror_token');
     const formData = new FormData();
     formData.append('image', file);
     const res = await fetch(`${API_BASE}/uploads/image`, {
       method: 'POST',
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
       body: formData,
     });
     if (!res.ok) {

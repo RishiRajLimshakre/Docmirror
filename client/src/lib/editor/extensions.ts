@@ -14,7 +14,8 @@ import TableHeader from "@tiptap/extension-table-header";
 import Placeholder from "@tiptap/extension-placeholder";
 import { PageBreak } from "./extensions/PageBreak";
 import { FontSize, LineSpacing } from "./extensions/FontSize";
-
+import Gapcursor from "@tiptap/extension-gapcursor";
+import Dropcursor from "@tiptap/extension-dropcursor";
 
 export function createEditorExtensions() {
   return [
@@ -45,13 +46,17 @@ export function createEditorExtensions() {
       resizable: true,
       allowTableNodeSelection: true,
       HTMLAttributes: {
-        style: 'editor-table',
+        class: "editor-table",
       },
     }),
     TableRow,
     TableHeader,
-    TableCell,
+    TableCell.configure({
+      allowGapCursor: true,
+    }),
     PageBreak,
+    Gapcursor,
+    Dropcursor,
     Placeholder.configure({
       placeholder: "Start writing your document...",
     }),
@@ -97,7 +102,6 @@ export const TEXT_COLORS = [
   "#16a34a",
   "#2563eb",
   "#7c3aed",
-
 ];
 
 export const HIGHLIGHT_COLORS = [

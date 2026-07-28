@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 import { connectDatabase } from './config/db.js';
+import { configurePassport, passport } from './config/passport.js';
+import authRoutes from './routes/auth.js';
 import documentRoutes from './routes/documents.js';
 import { createUploadRouter } from './routes/uploads.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -32,10 +34,14 @@ app.use(
 app.use(express.json({ limit: '10mb' }));
 app.use('/uploads', express.static(uploadPath));
 
+configurePassport();
+app.use(passport.initialize());
+
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', service: 'docmirror-api' });
 });
 
+app.use('/api/auth', authRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/uploads', createUploadRouter(UPLOAD_DIR));
 

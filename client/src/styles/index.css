@@ -26,9 +26,18 @@
   }
 }
 
+@layer components {
+  .btn {
+    @apply px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50;
+  }
+  .btn-outline {
+    @apply px-4 py-2 border rounded hover:bg-gray-50;
+  }
+}
+
 /* Editor styles */
 .ProseMirror {
-  min-height: calc(100vh - 120px);
+  min-height: 100%;
   outline: none;
 }
 
@@ -175,4 +184,19 @@ td, th {
 .preview-page th {
   font-family: inherit;
   font-variant-numeric: lining-nums;
+}
+
+/* Allow clicking below tables */
+.ProseMirror {
+  padding-bottom: 100px;
+}
+
+/* Ensure there's space after block nodes */
+.ProseMirror > *:last-child {
+  margin-bottom: 2rem;
+}
+
+/* Prevent table blocking cursor */
+.ProseMirror table {
+  margin-bottom: 1rem;
 }

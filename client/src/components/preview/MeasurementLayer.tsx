@@ -20,19 +20,32 @@ export function MeasurementLayer({ blocks, pageSettings, measureRef }: Measureme
     <div
       ref={measureRef}
       aria-hidden
-      className="pointer-events-none fixed opacity-0"
+      className="fixed opacity-0 pointer-events-none"
       style={{
-        width: contentWidth,
+        width: A4_WIDTH_PX,
         left: -9999,
         top: 0,
-        zIndex: -1,
+        padding: `${pageSettings.marginTop}px ${pageSettings.marginRight}px ${pageSettings.marginBottom}px ${pageSettings.marginLeft}px`,
+        boxSizing: "border-box",
       }}
     >
-      {blocks.map((block) => (
-        <div key={block.id} data-block-id={block.id}>
-          <BlockRenderer block={block} lineSpacing={pageSettings.lineSpacing} />
-        </div>
-      ))}
+      <div
+        style={{
+          width:
+            A4_WIDTH_PX -
+            pageSettings.marginLeft -
+            pageSettings.marginRight,
+        }}
+      >
+        {blocks.map((block) => (
+          <div key={block.id} data-block-id={block.id}>
+            <BlockRenderer
+              block={block}
+              lineSpacing={pageSettings.lineSpacing}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

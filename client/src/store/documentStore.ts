@@ -21,8 +21,6 @@ interface DocumentState {
   saveStatus: SaveStatus;
   isDirty: boolean;
   lastSavedAt: string | null;
-  
-  
 
   // Preview pipeline state
   previewBlocks: PreviewBlock[];
@@ -32,9 +30,7 @@ interface DocumentState {
   blockMeasurements: BlockMeasurement[];
   /** Bumped when content is loaded externally (import, fetch) to sync editor */
   contentRevision: number;
-  
 
-  
   setDocument: (doc: DocMirrorDocument) => void;
   setContent: (content: Record<string, unknown>) => void;
   setTitle: (title: string) => void;
@@ -177,10 +173,20 @@ export const useDocumentStore = create<DocumentState>((set, get) => ({
   setEditorZoom: (zoom) => set({ editorZoom: zoom }),
 
   setBlockMeasurements: (measurements) => {
-    const { document, blockMeasurements: prev } = get();
+    const { document, previewBlocks, blockMeasurements: prev } = get();
     if (!document) return;
 
-    // Skip if measurements unchanged (avoids re-render loops)
+    //  Only measure non-pageBreak blocks
+    const measurableBlocks = previewBlocks.filter(
+      (b) => b.type !== "pageBreak",
+    );
+
+    //  Do NOT paginate if not all blocks measured
+    if (measurements.length !== measurableBlocks.length) {
+      return;
+    }
+
+    //  Skip if unchanged
     const same =
       measurements.length === prev.length &&
       measurements.every(
@@ -195,7 +201,11 @@ export const useDocumentStore = create<DocumentState>((set, get) => ({
       measurements,
       document.pageSettings,
     );
-    set({ blockMeasurements: measurements, ...pipeline });
+
+    set({
+      blockMeasurements: measurements,
+      ...pipeline,
+    });
   },
 
   refreshPreview: () => {

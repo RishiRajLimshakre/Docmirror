@@ -52,7 +52,7 @@ export function RichTextEditor({ className }: RichTextEditorProps) {
 
   if (!editor) return null;
 
- 
+
 
 
   return (
@@ -71,10 +71,9 @@ export function RichTextEditor({ className }: RichTextEditorProps) {
             className="relative bg-white shadow-lg"
             style={{
               width: A4_WIDTH_PX,
-             minHeight: A4_HEIGHT_PX,
+              minHeight: A4_HEIGHT_PX,
               padding: `${pageSettings?.marginTop ?? 72}px ${pageSettings?.marginRight ?? 72}px ${pageSettings?.marginBottom ?? 72}px ${pageSettings?.marginLeft ?? 72}px`,
-              boxSizing: 'border-box',
-              
+              boxSizing: "border-box",
             }}
           >
             <EditorContent editor={editor} />

@@ -42,7 +42,7 @@ export const PreviewPage = forwardRef<HTMLDivElement, PreviewPageProps>(
           </div>
         )}
 
-        <div className="preview-page-content h-full overflow-hidden">
+        <div className="preview-page-content h-full">
           {blocks.map((block) => (
             <div key={block.id} data-block-id={block.id}>
               <BlockRenderer block={block} lineSpacing={lineSpacing} />

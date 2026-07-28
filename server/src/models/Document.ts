@@ -1,7 +1,8 @@
-import mongoose, { Schema, Document as MongoDocument } from 'mongoose';
+import mongoose, { Schema, Document as MongoDocument, Types } from 'mongoose';
 import { DEFAULT_PAGE_SETTINGS, DocumentMetadata, PageSettings } from '../types/document.js';
 
 export interface IDocument extends MongoDocument {
+  userId: Types.ObjectId;
   title: string;
   content: Record<string, unknown>;
   pageSettings: PageSettings;
@@ -27,6 +28,7 @@ const pageSettingsSchema = new Schema<PageSettings>(
 
 const documentSchema = new Schema<IDocument>(
   {
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
     title: { type: String, required: true, trim: true, default: 'Untitled Document' },
     content: { type: Schema.Types.Mixed, required: true, default: { type: 'doc', content: [] } },
     pageSettings: { type: pageSettingsSchema, default: () => ({ ...DEFAULT_PAGE_SETTINGS }) },

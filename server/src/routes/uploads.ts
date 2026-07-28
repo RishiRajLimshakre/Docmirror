@@ -3,6 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { uploadImage, getUploadPath } from '../controllers/uploadController.js';
+import { authMiddleware } from '../middleware/auth.js';
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
@@ -28,6 +29,7 @@ export function createUploadRouter(uploadDir: string): Router {
     },
   });
 
+  router.use(authMiddleware);
   router.post('/image', upload.single('image'), uploadImage);
   return router;
 }
