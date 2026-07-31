@@ -5,6 +5,7 @@ import { useAuthStore } from '@/store/authStore';
 export function LoginPage() {
   const navigate = useNavigate();
   const login = useAuthStore((s) => s.login);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -14,6 +15,7 @@ export function LoginPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
+
     try {
       await login(email, password);
       navigate('/');
@@ -24,58 +26,52 @@ export function LoginPage() {
     }
   };
 
-  // const googleLogin = () => {
-  //   window.location.href = `${getApiBaseUrl()}/api/auth/google`;
-  // };
-
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-50">
-      <div className="w-full max-w-sm p-6 bg-white border rounded shadow-sm">
-        <h1 className="text-xl font-bold mb-1">DocMirror</h1>
-        <p className="text-sm text-gray-500 mb-6">Sign in to your account</p>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h1 className="auth-title">Welcome back</h1>
+        <p className="auth-subtitle">
+          Sign in to continue to <span className="font-medium">DocMirror</span>
+        </p>
 
-        {error && (
-          <div className="mb-4 p-3 text-sm text-red-600 bg-red-50 border rounded">
-            {error}
-          </div>
-        )}
+        {error && <div className="auth-error">{error}</div>}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="mt-6 space-y-5">
           <div>
-            <label className="block text-sm mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Email
+            </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="auth-input"
               required
             />
           </div>
+
           <div>
-            <label className="block text-sm mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Password
+            </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="auth-input"
               required
             />
           </div>
-          <button type="submit" className="btn w-full" disabled={loading}>
+
+          <button type="submit" disabled={loading} className="auth-btn">
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
 
-        <div className="my-4 text-center text-sm text-gray-400">or</div>
-
-        {/* <button type="button" onClick={googleLogin} className="btn-outline w-full">
-          Continue with Google
-        </button> */}
-
-        <p className="mt-4 text-sm text-center text-gray-500">
-          No account?{' '}
-          <Link to="/register" className="text-blue-600 hover:underline">
-            Register
+        <p className="mt-6 text-center text-sm text-gray-500">
+          Don’t have an account?{' '}
+          <Link to="/register" className="auth-link">
+            Create one
           </Link>
         </p>
       </div>

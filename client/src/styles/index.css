@@ -28,11 +28,61 @@
 
 @layer components {
   .btn {
-    @apply px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50;
-  }
-  .btn-outline {
-    @apply px-4 py-2 border rounded hover:bg-gray-50;
-  }
+  @apply px-4 py-2 rounded-lg font-medium 
+  bg-primary text-primary-foreground 
+  shadow-sm hover:opacity-90 transition 
+  disabled:opacity-50;
+}
+
+.btn-outline {
+  @apply px-4 py-2 rounded-lg border border-border 
+  bg-white hover:bg-muted transition;
+}
+
+
+/* Auth UI */
+
+.auth-page {
+  @apply relative flex min-h-screen items-center justify-center 
+  bg-gradient-to-br from-indigo-50 via-white to-purple-100 px-4;
+}
+
+.auth-card {
+  @apply w-full max-w-md rounded-2xl bg-white p-8 
+  shadow-xl border border-gray-100;
+}
+
+.auth-title {
+  @apply text-2xl font-semibold text-gray-900;
+}
+
+.auth-subtitle {
+  @apply mt-1 text-sm text-gray-500;
+}
+
+.auth-input {
+  @apply w-full rounded-lg border border-gray-300 bg-gray-50 
+  px-3 py-2 text-sm focus:outline-none 
+  focus:ring-2 focus:ring-primary 
+  focus:border-transparent transition;
+}
+
+.auth-btn {
+  @apply w-full rounded-lg bg-primary text-primary-foreground 
+  py-2.5 text-sm font-medium shadow 
+  hover:opacity-90 transition disabled:opacity-60;
+}
+
+.auth-error {
+  @apply mt-4 rounded-lg bg-red-50 border border-red-200 
+  p-3 text-sm text-red-600;
+}
+
+.auth-link {
+  @apply text-primary font-medium hover:underline;
+}
+
+
 }
 
 /* Editor styles */
@@ -200,3 +250,4 @@ td, th {
 .ProseMirror table {
   margin-bottom: 1rem;
 }
+
