@@ -8,6 +8,7 @@ import { getTemplate } from '@/lib/templates';
 import { DEFAULT_PAGE_SETTINGS } from '@/types/document';
 import { checkHealth } from '@/api/client';
 import { Spinner } from '@/components/ui/Spinner';
+import dashboardBg from '@/assets/dashboard-bg.jpg';
 
 export function DashboardPage() {
   const navigate = useNavigate();
@@ -49,34 +50,42 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-10">
-      <div className="mb-8">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold">DocMirror</h1>
-            <p className="mt-2 text-muted-foreground">
-              Word-like document editor with live paginated PDF preview
-            </p>
+    <div
+      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `url(${dashboardBg})`,
+      }}
+    >
+      <div className="mx-auto max-w-5xl px-6 py-10">
+        <div className="mb-8">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-bold">DocMirror</h1>
+              <p className="mt-2 text-muted-foreground">
+                Word-like document editor with live paginated PDF preview
+              </p>
+            </div>
+            <ImportDocxButton
+              label="Import DOCX"
+              size="md"
+              onImport={handleImportDocx}
+            />
           </div>
-          <ImportDocxButton
-            label="Import DOCX"
-            size="md"
-            onImport={handleImportDocx}
-          />
         </div>
+
+        {apiOnline === null ? (
+          <div className="flex justify-center py-12"><Spinner /></div>
+        ) : (
+          <DocumentList onCreateNew={() => setDialogOpen(true)} />
+        )}
+
+        <CreateDocumentDialog
+          open={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          onCreate={handleCreate}
+        />
       </div>
 
-      {apiOnline === null ? (
-        <div className="flex justify-center py-12"><Spinner /></div>
-      ) : (
-        <DocumentList onCreateNew={() => setDialogOpen(true)} />
-      )}
-
-      <CreateDocumentDialog
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        onCreate={handleCreate}
-      />
     </div>
   );
 }

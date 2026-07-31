@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
+import authBg from "@/assets/auth-bg.png";
+
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -34,7 +36,15 @@ export function RegisterPage() {
   };
 
   return (
-    <div className="auth-page">
+    <div
+      className="auth-page"
+      style={{
+        backgroundImage: `url(${authBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="auth-card">
         <h1 className="auth-title">Create account</h1>
         <p className="auth-subtitle">
