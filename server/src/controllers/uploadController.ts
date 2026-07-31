@@ -12,8 +12,9 @@ export async function uploadImage(
       throw new AppError(400, "No file uploaded");
     }
 
-    const url = `/uploads/${req.file.filename}`;
-    
+    const baseUrl = process.env.BASE_URL;
+    const url = `${baseUrl}/uploads/${req.file.filename}`;
+
     res.status(201).json({
       url,
       filename: req.file.filename,
