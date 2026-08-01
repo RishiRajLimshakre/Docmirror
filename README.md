@@ -4,7 +4,6 @@ DocMirror is a full-stack document editor built to simulate a modern writing exp
 
 It is designed as a production-style SaaS prototype, focusing on document structure, pagination logic, export workflows, and clean architecture.
 
----
 
 ## Overview
 
@@ -17,8 +16,6 @@ This project focuses on:
 - DOM-based block measurement
 - Client-side export workflows
 - Modular architecture for future scalability
-
----
 
 ## Key Features
 
@@ -55,8 +52,6 @@ This project focuses on:
 - Image embedding inside documents
 - Referenced and persisted via MongoDB
 
----
-
 ## How to Use DocMirror
 
 1. **Create or open a document** from the dashboard.
@@ -74,8 +69,6 @@ If preview layout appears slightly misaligned:
 - Refresh the page if preview rendering becomes inconsistent.
 
 This is a prototype iteration and pagination improvements are ongoing.
-
----
 
 ## Tech Stack
 
@@ -99,8 +92,6 @@ This is a prototype iteration and pagination improvements are ongoing.
 - docx (DOCX generation)
 - mammoth (DOCX import)
 
----
-
 ## Architecture
 
 DocMirror is structured around three core layers:
@@ -112,8 +103,6 @@ Powered by Tiptap, with custom extensions for:
 - Line spacing
 
 The editor produces structured JSON content that serves as the single source of truth.
-
----
 
 ### 2. Document Model Layer
 
@@ -128,8 +117,6 @@ This structured approach enables:
 - Reliable export
 - Future collaborative features
 
----
-
 ### 3. Preview & Pagination Engine
 
 The preview pipeline follows this flow:
@@ -143,8 +130,6 @@ The preview pipeline follows this flow:
 7. Generate DOCX from structured content
 
 This separation ensures preview zoom does not affect export quality.
-
----
 
 ## Project Structure
 
@@ -170,9 +155,6 @@ DocMirror/
 │       └── services/
 └── README.md
 ```
-
----
-
 ## Setup & Installation
 
 ### Prerequisites
@@ -180,7 +162,6 @@ DocMirror/
 - Node.js (v18+)
 - MongoDB (local or Atlas)
 
----
 
 ### Install Dependencies
 
@@ -214,8 +195,6 @@ http://localhost:5173
 - No real-time collaboration (future enhancement).
 - Pagination engine still being refined for edge cases.
 - Image resizing inside editor can be enhanced further.
-
----
 
 ## Future Improvements
 
